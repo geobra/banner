@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Marquee.qml</file>
+        <file>Ghost.qml</file>
+        <file>Animation.qml</file>
+        <file>Configuration.qml</file>
+        <file>DisplayTextModel.qml</file>
+    </qresource>
+</RCC>

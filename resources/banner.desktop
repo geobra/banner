@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Banner
+GenericName=A Banner App
+Keywords=banner
+Exec=banner
+Icon=/usr/share/icons/hicolor/256x256/apps/banner.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Qt;
+X-GNOME-UsesNotifications=true
+
