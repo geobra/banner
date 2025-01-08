@@ -4,88 +4,121 @@ import QtQuick.Layouts 1.0
 
 Rectangle {
     id: configuration
+    property int defaultRowHeight: 30;
 
     Component {
         id: displayTextDelegate
 
-        RowLayout {
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.minimumWidth: 100
-                Layout.preferredWidth: rootWindow.width * 0.5
-                Layout.minimumHeight: 50
-                TextField {
-                    //font.pointSize: 20
-
-                    placeholderText: bannerText
-                    placeholderTextColor: 'grey'
-                    onTextChanged: {
-                        bannerText = text;
+        ColumnLayout {
+            spacing: 1
+            RowLayout {
+                spacing: 1
+                Rectangle {
+                    Layout.preferredHeight: defaultRowHeight
+                    Layout.preferredWidth: rootWindow.width * 0.2
+                    //color: 'yellow'
+                    Label {
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        text: "Text:"
                     }
-                    anchors {
-                        left: parent.left
-                        right: parent.right
+                }
+                Rectangle {
+                    //anchors.fill: parent // only for stuff not managed by a layout!
+                    Layout.preferredWidth: rootWindow.width * 0.8
+                    Layout.preferredHeight: defaultRowHeight
+                    //color: 'blue'
+                    TextField {
+                        placeholderText: bannerText
+                        placeholderTextColor: 'grey'
+                        onTextChanged: {
+                            bannerText = text;
+                        }
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                    }
+
+                }
+            }
+            RowLayout {
+                Rectangle {
+                    Layout.preferredHeight: defaultRowHeight
+                    Layout.preferredWidth: rootWindow.width * 0.2
+                    //color: 'green'
+                    Label {
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        text: "Duration:"
+                    }
+                }
+                Rectangle {
+                    //Layout.fillWidth: true
+                    Layout.minimumWidth: 30
+                    Layout.preferredWidth: rootWindow.width * 0.70
+                    Layout.preferredHeight: defaultRowHeight
+                    TextField {
+                        text: durationTime
+                        onTextChanged: {
+                            durationTime = text;
+                        }
+                        validator: IntValidator {bottom: 1; top: 100000}
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                    }
+                }
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: 5
+                    Layout.preferredWidth: rootWindow.width * 0.1
+                    Layout.preferredHeight: defaultRowHeight
+                    Label {
+                        text: "ms"
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+            }
+            RowLayout {
+                Rectangle {
+                    Layout.preferredHeight: defaultRowHeight
+                    Layout.minimumWidth: rootWindow.width * 0.2
+                    //color: 'yellow'
+                    Label {
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        text: "Style:"
+                    }
+                }
+                Rectangle {
+                    Layout.minimumWidth: 40
+                    Layout.preferredWidth: rootWindow.width * 0.75
+                    Layout.preferredHeight: defaultRowHeight
+                    ComboBox {
+                        id: animationChooser
+                        model: [ "ghost", "wq" ];
+                        currentIndex: indexNr;
+                        onCurrentIndexChanged: {
+                            indexNr = currentIndex;
+                        }
+                        anchors.fill: parent
                     }
                 }
             }
             Rectangle {
                 Layout.fillWidth: true
-                Layout.minimumWidth: 40
-                Layout.preferredWidth: rootWindow.width * 0.20
-                Layout.minimumHeight: 50
-                TextField {
-                    text: durationTime
-                    onTextChanged: {
-                        durationTime = text;
-                    }
-                    validator: IntValidator {bottom: 1; top: 100000}
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                }
-            }
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.minimumWidth: 5
-                Layout.preferredWidth: rootWindow.width * 0.08
-                Layout.minimumHeight: 50
-                Label {
-                    text: "ms"
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.minimumWidth: 40
-                Layout.preferredWidth: rootWindow.width * 0.20
-                Layout.minimumHeight: 50
-                ComboBox {
-                    id: animationChooser
-                    model: [ "ghost", "wq" ];
-                    currentIndex: indexNr;
-                    onCurrentIndexChanged: {
-                        indexNr = currentIndex;
-                    }
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                }
+                height: 1
+                color: "blue"
             }
         }
 
     }
 
     Rectangle {
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: buttons.top
-        }
         anchors.fill: parent
 
         ListView {
