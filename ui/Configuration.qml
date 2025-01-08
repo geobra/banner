@@ -6,6 +6,15 @@ Rectangle {
     id: configuration
     property int defaultRowHeight: 30;
 
+    // does not work
+    //property bool darkMode: Application.styleHints.colorScheme === Qt.ColorScheme.Dark
+
+    property bool lightMode: false
+
+    SystemPalette { id: myPalette; colorGroup: SystemPalette.Active }
+    property string bgcolor: lightMode ? myPalette.window : 'darkslategray' //myPalette.mid
+
+    color: bgcolor
     Component {
         id: displayTextDelegate
 
@@ -16,7 +25,7 @@ Rectangle {
                 Rectangle {
                     Layout.preferredHeight: defaultRowHeight
                     Layout.preferredWidth: rootWindow.width * 0.2
-                    //color: 'yellow'
+                    color: bgcolor
                     Label {
                         anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
@@ -27,10 +36,10 @@ Rectangle {
                     //anchors.fill: parent // only for stuff not managed by a layout!
                     Layout.preferredWidth: rootWindow.width * 0.8
                     Layout.preferredHeight: defaultRowHeight
-                    //color: 'blue'
+                    color: bgcolor
                     TextField {
                         placeholderText: bannerText
-                        placeholderTextColor: 'grey'
+                        placeholderTextColor: myPalette.midlight
                         onTextChanged: {
                             bannerText = text;
                         }
@@ -47,7 +56,7 @@ Rectangle {
                 Rectangle {
                     Layout.preferredHeight: defaultRowHeight
                     Layout.preferredWidth: rootWindow.width * 0.2
-                    //color: 'green'
+                    color: bgcolor
                     Label {
                         anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
@@ -59,6 +68,7 @@ Rectangle {
                     Layout.minimumWidth: 30
                     Layout.preferredWidth: rootWindow.width * 0.70
                     Layout.preferredHeight: defaultRowHeight
+                    color: bgcolor
                     TextField {
                         text: durationTime
                         onTextChanged: {
@@ -77,6 +87,7 @@ Rectangle {
                     Layout.minimumWidth: 5
                     Layout.preferredWidth: rootWindow.width * 0.1
                     Layout.preferredHeight: defaultRowHeight
+                    color: bgcolor
                     Label {
                         text: "ms"
                         anchors.verticalCenter: parent.verticalCenter
@@ -87,7 +98,7 @@ Rectangle {
                 Rectangle {
                     Layout.preferredHeight: defaultRowHeight
                     Layout.minimumWidth: rootWindow.width * 0.2
-                    //color: 'yellow'
+                    color: bgcolor
                     Label {
                         anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
@@ -98,6 +109,7 @@ Rectangle {
                     Layout.minimumWidth: 40
                     Layout.preferredWidth: rootWindow.width * 0.75
                     Layout.preferredHeight: defaultRowHeight
+                    color: bgcolor
                     ComboBox {
                         id: animationChooser
                         model: [ "ghost", "wq" ];
@@ -120,6 +132,7 @@ Rectangle {
 
     Rectangle {
         anchors.fill: parent
+        color: bgcolor
 
         ListView {
             id: listView
@@ -150,6 +163,7 @@ Rectangle {
         }
         Button {
             text: "remove row";
+
             onClicked: {
                 console.log("rm: " + listView.model.rowCount())
                 if (listView.model.rowCount() > 1) {

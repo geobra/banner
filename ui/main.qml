@@ -13,6 +13,7 @@ Window {
     Material.background: Material.Orange
 
     property int plattform: 1; // from main.cpp. 0 = arm, 1 is other
+    property bool lightMode: false
 
     width: 640
     height: 480
@@ -23,6 +24,15 @@ Window {
         if(plattform === 0) {
             rootWindow.showFullScreen()
             flags: Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint
+        }
+
+        console.log("lightmode: " + lightMode)
+    }
+
+    Component {
+        id: configuration
+        Configuration {
+            lightMode: lightMode
         }
     }
 
@@ -36,6 +46,7 @@ Window {
             color: "#000000"
         }
 
-        initialItem: Qt.resolvedUrl("Configuration.qml")
+        //initialItem: Qt.resolvedUrl("Configuration.qml")
+        initialItem: {configuration}
     }
 }

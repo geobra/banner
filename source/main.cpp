@@ -3,6 +3,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QPalette>
 
 #include <iostream>
 
@@ -26,6 +27,8 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
+    bool lightMode = app.palette().window().color().value() > app.palette().windowText().color().value();
+
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -34,10 +37,12 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
-    engine.load(url);
-    engine.rootContext()->setContextProperty("platform",  platformId);
 
-    //std::cout << "plattform: " << platformId << std::endl;
+    engine.rootContext()->setContextProperty("platform",  platformId);
+    engine.rootContext()->setContextProperty("lightMode",  lightMode);
+    engine.load(url);
+
+    std::cout << "plattform: " << platformId << ", lm: " << lightMode << std::endl;
 
     return app.exec();
 }
