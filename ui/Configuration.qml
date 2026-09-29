@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.0
 
 Rectangle {
     id: configuration
-    property int defaultRowHeight: 30;
+    property int defaultRowHeight: 40;
 
     // does not work
     //property bool darkMode: Application.styleHints.colorScheme === Qt.ColorScheme.Dark
@@ -44,10 +44,7 @@ Rectangle {
                             displayTextModel.setBannerText(index, text);
                         }
 
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
+                        anchors.fill: parent
                     }
 
                 }
@@ -79,10 +76,7 @@ Rectangle {
                         }
                         validator: IntValidator {bottom: 1; top: 100000}
 
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
+                        anchors.fill: parent
                     }
                 }
                 Rectangle {
