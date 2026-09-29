@@ -14,11 +14,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick DBus)
 
 set(PROJECT_SOURCES
         source/main.cpp
+        source/Model.cpp source/Model.h
         source/ScreenSaver.h source/ScreenSaver.cpp
         ui/qml.qrc
 )
-
-qt5_add_resources(IMG_RSC_ADDED ui/qml.qrc )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(banner
@@ -39,7 +38,6 @@ else()
     else()
         add_executable(banner
           ${PROJECT_SOURCES}
-          ${IMG_RSC_ADDED}
         )
     endif()
 endif()

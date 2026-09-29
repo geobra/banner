@@ -14,6 +14,7 @@ rm -f "$PKGNAME-$PKGVER.$TAREX"
 cp -r . "$TMPDIR/$PKGNAME-$PKGVER"
 cd $TMPDIR
 rm -rf "$TMPDIR/$PKGNAME-$PKGVER/.git"
+rm -rf "$PKGNAME-$PKGVER/build/"
 tar -cjf $PKGNAME-$PKGVER.$TAREX $PKGNAME-$PKGVER
 cd - > /dev/null
 

@@ -5,6 +5,5 @@
         <file>Ghost.qml</file>
         <file>Animation.qml</file>
         <file>Configuration.qml</file>
-        <file>DisplayTextModel.qml</file>
     </qresource>
 </RCC>

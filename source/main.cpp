@@ -1,4 +1,5 @@
 #include "ScreenSaver.h"
+#include "Model.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -27,9 +28,14 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
+    QCoreApplication::setOrganizationName(QStringLiteral("banner"));
+    QCoreApplication::setApplicationName(QStringLiteral("banner"));
+
     bool lightMode = app.palette().window().color().value() > app.palette().windowText().color().value();
 
     QQmlApplicationEngine engine;
+    Model displayTextModel;
+    engine.rootContext()->setContextProperty("displayTextModel", &displayTextModel);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

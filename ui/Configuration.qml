@@ -38,10 +38,10 @@ Rectangle {
                     Layout.preferredHeight: defaultRowHeight
                     color: bgcolor
                     TextField {
-                        placeholderText: bannerText
+                        text: bannerText
                         placeholderTextColor: myPalette.midlight
-                        onTextChanged: {
-                            bannerText = text;
+                        onTextEdited: {
+                            displayTextModel.setBannerText(index, text);
                         }
 
                         anchors {
@@ -71,8 +71,11 @@ Rectangle {
                     color: bgcolor
                     TextField {
                         text: durationTime
-                        onTextChanged: {
-                            durationTime = text;
+                        onTextEdited: {
+                            displayTextModel.setDurationTime(index, text);
+                        }
+                        onEditingFinished: {
+                            text = durationTime;
                         }
                         validator: IntValidator {bottom: 1; top: 100000}
 
@@ -114,8 +117,8 @@ Rectangle {
                         id: animationChooser
                         model: [ "ghost", "wq" ];
                         currentIndex: indexNr;
-                        onCurrentIndexChanged: {
-                            indexNr = currentIndex;
+                        onActivated: {
+                            displayTextModel.setIndexNr(index, currentIndex);
                         }
                         anchors.fill: parent
                     }
@@ -140,7 +143,7 @@ Rectangle {
             width: rootWindow.width
             height: rootWindow.height - (buttons.height * 2)
 
-            model: DisplayTextModel {}
+            model: displayTextModel
             delegate: displayTextDelegate
         }
     }
@@ -158,16 +161,15 @@ Rectangle {
         Button {
             text: "add row";
             onClicked: {
-                listView.model.append({ bannerText: "message", durationTime: "1000", indexNr: 0 });
+                displayTextModel.append({ bannerText: "message", durationTime: 1000, indexNr: 0 });
             }
         }
         Button {
             text: "remove row";
 
             onClicked: {
-                console.log("rm: " + listView.model.rowCount())
-                if (listView.model.rowCount() > 1) {
-                    listView.model.remove(listView.model.rowCount()-1);
+                if (displayTextModel.rowCount() > 1) {
+                    displayTextModel.remove(displayTextModel.rowCount() - 1);
                 }
             }
         }
@@ -177,9 +179,9 @@ Rectangle {
 
             onClicked: {
                 var arr = [];
-                for( var i = 0; i < listView.model.rowCount(); i++ ) {
-                    //console.log( "text: " + listView.model.get(i).bannerText + " , duration: " + listView.model.get(i).durationTime + " , type: " + listView.model.get(i).indexNr);
-                    arr.push({ msg : listView.model.get(i).bannerText, duration: listView.model.get(i).durationTime, type: (listView.model.get(i).indexNr === 0) ? "ghost" : "wq" });
+                for (var i = 0; i < displayTextModel.rowCount(); i++) {
+                    var entry = displayTextModel.get(i);
+                    arr.push({ msg: entry.bannerText, duration: entry.durationTime, type: entry.indexNr === 0 ? "ghost" : "wq" });
                 }
 
                 stack.push(Qt.resolvedUrl("Animation.qml"), {array: arr})
