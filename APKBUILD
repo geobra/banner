@@ -3,12 +3,12 @@
 pkgname=banner
 pkgver=1.0.0
 pkgrel=0
-pkgdesc="A banner app which displays custom animated message on the mobiles display"
-url="http://some-git-source.org"
+pkgdesc="A banner app which displays custom animated message on the (mobile) display"
+url="https://github.com/geobra/banner"
 arch="all"
 license="qpl"
-depends="qt5-qtbase qt5-qtquickcontrols2"
-makedepends="cmake qt5-qtbase-dev qt5-qtquickcontrols2-dev"
+depends="qt6-qtbase qt6-qtdeclarative"
+makedepends="cmake qt6-qtbase-dev qt6-qtdeclarative-dev"
 checkdepends=""
 install=""
 subpackages="$pkgname-dev $pkgname-doc"
