@@ -109,6 +109,21 @@ void Model::remove(int row)
     saveSettings();
 }
 
+bool Model::moveRow(int from, int to)
+{
+    if (from == to || from < 0 || to < 0 || from >= m_entries.size() || to >= m_entries.size())
+        return false;
+
+    // QAbstractItemModel::beginMoveRows requires the destination as if the source row was already removed
+    const int destination = to > from ? to + 1 : to;
+    if (!beginMoveRows(QModelIndex(), from, from, QModelIndex(), destination))
+        return false;
+    m_entries.move(from, to);
+    endMoveRows();
+    saveSettings();
+    return true;
+}
+
 bool Model::setBannerText(int row, const QString &text)
 {
     return setData(index(row), text, BannerTextRole);

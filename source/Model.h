@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE QVariantMap get(int row) const;
     Q_INVOKABLE void append(const QVariantMap &entry);
     Q_INVOKABLE void remove(int row);
+    Q_INVOKABLE bool moveRow(int from, int to);
     Q_INVOKABLE bool setBannerText(int row, const QString &text);
     Q_INVOKABLE bool setDurationTime(int row, const QVariant &duration);
     Q_INVOKABLE bool setIndexNr(int row, int index);

@@ -92,6 +92,9 @@ Rectangle {
             spacing: 10
             model: displayTextModel
             boundsBehavior: Flickable.StopAtBounds
+            moveDisplaced: Transition {
+                NumberAnimation { properties: "y"; duration: 150; easing.type: Easing.OutQuad }
+            }
 
             ScrollBar.vertical: ScrollBar {
                 policy: ScrollBar.AsNeeded
@@ -127,6 +130,36 @@ Rectangle {
                             color: configuration.secondaryText
                             font.pixelSize: 11
                             font.weight: Font.DemiBold
+                        }
+
+                        ToolButton {
+                            text: "\u25b2"
+                            enabled: messagePanel.index > 0
+                            implicitHeight: 30
+                            implicitWidth: 34
+                            onClicked: displayTextModel.moveRow(messagePanel.index, messagePanel.index - 1)
+                            contentItem: Label {
+                                text: parent.text
+                                color: parent.enabled ? configuration.primaryText : configuration.secondaryText
+                                font.pixelSize: 12
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+
+                        ToolButton {
+                            text: "\u25bc"
+                            enabled: messagePanel.index < messageList.count - 1
+                            implicitHeight: 30
+                            implicitWidth: 34
+                            onClicked: displayTextModel.moveRow(messagePanel.index, messagePanel.index + 1)
+                            contentItem: Label {
+                                text: parent.text
+                                color: parent.enabled ? configuration.primaryText : configuration.secondaryText
+                                font.pixelSize: 12
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
                         }
 
                         ToolButton {
